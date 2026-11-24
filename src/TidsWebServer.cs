@@ -648,6 +648,16 @@ namespace TidsTheory
                     if (lo == top4[0] || lo == top4[1]) stlHits++;
                 }
 
+                // Tam Thủ Lô (STL 2 số + Lô lót 1 số = 3 số)
+                int lotHits = 0;
+                foreach (var lo in actual.LoList)
+                {
+                    if (lo == top4[2]) lotHits++;
+                }
+                bool hitLotLo = lotHits > 0;
+                int tamThuHits = stlHits + lotHits;
+                bool hitTamThu = tamThuHits > 0;
+
                 bool hitXien2 = actual.UniqueLo.Contains(top4[0]) && actual.UniqueLo.Contains(top4[1]);
 
                 int tuThuHits = 0;
@@ -711,6 +721,32 @@ namespace TidsTheory
                 bool hit4D_36 = !string.IsNullOrEmpty(actual4D) && dan4D_36.Contains(actual4D);
                 bool hit4D_81 = !string.IsNullOrEmpty(actual4D) && dan4D_81.Contains(actual4D);
 
+                // Tính toán hiệu quả tài chính danh mục chuẩn 500k
+                long dayCost = 500000;
+                long revLo = (long)stlHits * 3 * 80000 + (long)lotHits * 1 * 80000;
+                long revDe = 0;
+                if (hitE42)
+                {
+                    revDe += 3000 * 99; // Cược E42 3k
+                    if (hitE27) revDe += 1000 * 99; // Lọt vào E27 thêm 1k
+                    revDe += 1000 * 99; // Vỏ E65 1k
+                }
+                else if (hitE65)
+                {
+                    revDe += 1000 * 99; // Vỏ E65 1k
+                }
+                long rev3D = 0;
+                if (hit3D_27) rev3D += 1000 * 960; // 3D 27s ăn 1:960
+                if (hit3D) rev3D += 2000 * 960; // 3D 12s ăn 1:960
+                long rev4D = 0;
+                if (hit4D_81) rev4D += 1000 * 8880; // 4D 81s ăn 1:8.880
+                if (hit4D_16) rev4D += 1000 * 8880; // 4D 16s/18s ăn 1:8.880
+
+                long totalRevenue = revLo + revDe + rev3D + rev4D;
+                long netPnl = totalRevenue - dayCost;
+                bool isWin = netPnl >= 0;
+                bool isBreakEven = totalRevenue >= 240000;
+
                 var sbRow = new StringBuilder();
                 sbRow.Append("{");
                 sbRow.AppendFormat("\"date\": \"{0}\",", actual.Date);
@@ -725,6 +761,10 @@ namespace TidsTheory
                 sbRow.AppendFormat("\"tuThu4\": {0},", top4[3]);
                 sbRow.AppendFormat("\"hitStl\": {0},", hitStl.ToString().ToLower());
                 sbRow.AppendFormat("\"stlHits\": {0},", stlHits);
+                sbRow.AppendFormat("\"hitTamThu\": {0},", hitTamThu.ToString().ToLower());
+                sbRow.AppendFormat("\"tamThuHits\": {0},", tamThuHits);
+                sbRow.AppendFormat("\"hitLotLo\": {0},", hitLotLo.ToString().ToLower());
+                sbRow.AppendFormat("\"lotHits\": {0},", lotHits);
                 sbRow.AppendFormat("\"hitTuThu\": {0},", hitTuThu.ToString().ToLower());
                 sbRow.AppendFormat("\"tuThuHits\": {0},", tuThuHits);
                 sbRow.AppendFormat("\"hitXien2\": {0},", hitXien2.ToString().ToLower());
@@ -743,7 +783,15 @@ namespace TidsTheory
                 sbRow.AppendFormat("\"hit4D_4\": {0},", hit4D_4.ToString().ToLower());
                 sbRow.AppendFormat("\"hit4D_16\": {0},", hit4D_16.ToString().ToLower());
                 sbRow.AppendFormat("\"hit4D_36\": {0},", hit4D_36.ToString().ToLower());
-                sbRow.AppendFormat("\"hit4D_81\": {0}", hit4D_81.ToString().ToLower());
+                sbRow.AppendFormat("\"hit4D_81\": {0},", hit4D_81.ToString().ToLower());
+                sbRow.AppendFormat("\"revLo\": {0},", revLo);
+                sbRow.AppendFormat("\"revDe\": {0},", revDe);
+                sbRow.AppendFormat("\"rev3D\": {0},", rev3D);
+                sbRow.AppendFormat("\"rev4D\": {0},", rev4D);
+                sbRow.AppendFormat("\"revenue\": {0},", totalRevenue);
+                sbRow.AppendFormat("\"pnl\": {0},", netPnl);
+                sbRow.AppendFormat("\"isWin\": {0},", isWin.ToString().ToLower());
+                sbRow.AppendFormat("\"isBreakEven\": {0}", isBreakEven.ToString().ToLower());
                 sbRow.Append("}");
                 list.Add(sbRow.ToString());
             }

@@ -575,13 +575,13 @@
             <h2 class="text-xs font-bold text-daoGold-400 flex items-center gap-1">
               <span>📊 ĐỐI SOÁT TOÀN DIỆN WALK-FORWARD</span>
             </h2>
-            <span class="text-[9px] bg-daoGold-600/20 text-daoGold-300 border border-daoGold-500/30 px-1 py-0.2 rounded font-bold">OOS</span>
+            <span class="text-[9px] bg-daoGold-600/20 text-daoGold-300 border border-daoGold-500/30 px-1.5 py-0.2 rounded font-bold">Chuẩn 3 Trục | Hòa Vốn ≥ 90%</span>
           </div>
           <span class="text-[10px] text-gray-400">Cuộn ngang xem đủ các cột ➔</span>
         </div>
 
         <!-- BỘ CHỌN SỐ NGÀY ĐỐI SOÁT TÙY BIẾN -->
-        <div class="bg-daoDark-850 p-2.5 rounded-xl border border-gray-800 mb-3 space-y-2">
+        <div class="bg-daoDark-850 p-2.5 rounded-xl border border-gray-800 mb-3 space-y-2.5">
           <div class="flex items-center justify-between text-[11px]">
             <span class="text-gray-300 font-semibold flex items-center gap-1">
               <span>📅 Phạm vi kiểm thử:</span>
@@ -611,51 +611,81 @@
             </button>
           </div>
 
-          <!-- Dải Chip Tóm Tắt Tỷ Lệ Trúng Thực Chiến -->
-          <div id="historyStatsBar" class="pt-1.5 border-t border-gray-800/80 grid grid-cols-4 gap-1 text-center text-[10px]">
-            <div class="bg-daoDark-900/90 py-1 px-1 rounded border border-gray-800">
-              <span class="text-gray-400 block text-[9px]">STL nổ:</span>
-              <strong id="statStl" class="text-emerald-400">--%</strong>
+          <!-- Dải Chip Tóm Tắt Tỷ Lệ Trúng & Hiệu Quả Danh Mục Chuẩn 3 Trục -->
+          <div id="historyStatsBar" class="pt-2 border-t border-gray-800/80 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5 text-center text-[10px]">
+            <div class="bg-daoDark-900/90 py-1.5 px-1 rounded-lg border border-daoGold-600/40 bg-daoGold-950/20">
+              <span class="text-daoGold-400 block text-[9px] font-bold">BẢO TOÀN VỐN (≥90%):</span>
+              <strong id="statBreakEven" class="text-daoGold-300 text-xs font-black">--%</strong>
             </div>
-            <div class="bg-daoDark-900/90 py-1 px-1 rounded border border-gray-800">
-              <span class="text-gray-400 block text-[9px]">Tứ thủ nổ:</span>
-              <strong id="statTuThu" class="text-emerald-400">--%</strong>
+            <div class="bg-daoDark-900/90 py-1.5 px-1 rounded-lg border border-gray-800">
+              <span class="text-gray-400 block text-[9px]">Tam Thủ Lô (Trục 1):</span>
+              <strong id="statTamThu" class="text-emerald-400 font-bold">--%</strong>
             </div>
-            <div class="bg-daoDark-900/90 py-1 px-1 rounded border border-gray-800">
-              <span class="text-gray-400 block text-[9px]">Giáp E65:</span>
-              <strong id="statE65" class="text-cyan-400">--%</strong>
+            <div class="bg-daoDark-900/90 py-1.5 px-1 rounded-lg border border-gray-800">
+              <span class="text-gray-400 block text-[9px]">Song Thủ Lô (STL):</span>
+              <strong id="statStl" class="text-emerald-400 font-bold">--%</strong>
             </div>
-            <div class="bg-daoDark-900/90 py-1 px-1 rounded border border-gray-800">
-              <span class="text-gray-400 block text-[9px]">Kiềng E42:</span>
-              <strong id="statE50" class="text-daoGold-400">--%</strong>
+            <div class="bg-daoDark-900/90 py-1.5 px-1 rounded-lg border border-gray-800">
+              <span class="text-gray-400 block text-[9px]">Giáp Đề E65 (Trục 2):</span>
+              <strong id="statE65" class="text-cyan-400 font-bold">--%</strong>
+            </div>
+            <div class="bg-daoDark-900/90 py-1.5 px-1 rounded-lg border border-gray-800">
+              <span class="text-gray-400 block text-[9px]">Kiềng Đề E42 (Lõi):</span>
+              <strong id="statE50" class="text-amber-400 font-bold">--%</strong>
+            </div>
+            <div class="bg-daoDark-900/90 py-1.5 px-1 rounded-lg border border-purple-800/40 bg-purple-950/20">
+              <span class="text-purple-300 block text-[9px] font-bold">Đột Biến (3D & 4D):</span>
+              <strong id="statDonBay" class="text-purple-400 font-bold">--</strong>
+            </div>
+          </div>
+
+          <!-- Dòng tóm tắt tài chính danh mục 500k/ngày -->
+          <div class="bg-daoDark-900/80 p-2 rounded-lg border border-gray-800 flex items-center justify-between text-[11px] text-gray-300">
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400">Hiệu quả danh mục chuẩn 500k:</span>
+              <span id="historyWinDaysText" class="font-bold text-daoGold-300">-- kỳ bảo toàn vốn</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-gray-400">Tổng PnL:</span>
+              <span id="historyTotalPnl" class="font-black text-emerald-400">-- đ</span>
             </div>
           </div>
         </div>
 
+        <!-- Bộ lọc nhanh danh sách -->
+        <div class="flex items-center justify-between gap-1 mb-2 text-[10px]">
+          <div class="flex items-center gap-1 overflow-x-auto scrollbar-none py-0.5">
+            <button onclick="filterHistory('all')" id="flt-all" class="px-2.5 py-0.5 rounded-full bg-daoGold-600 text-white font-bold transition-colors">Tất Cả</button>
+            <button onclick="filterHistory('breakeven')" id="flt-breakeven" class="px-2.5 py-0.5 rounded-full bg-daoDark-900 border border-gray-700 text-gray-300 hover:border-daoGold-500 transition-colors">Hòa Vốn/Có Lãi</button>
+            <button onclick="filterHistory('lo')" id="flt-lo" class="px-2.5 py-0.5 rounded-full bg-daoDark-900 border border-gray-700 text-gray-300 hover:border-daoGold-500 transition-colors">Nổ Lô</button>
+            <button onclick="filterHistory('de')" id="flt-de" class="px-2.5 py-0.5 rounded-full bg-daoDark-900 border border-gray-700 text-gray-300 hover:border-daoGold-500 transition-colors">Trúng Đề E65</button>
+            <button onclick="filterHistory('3d4d')" id="flt-3d4d" class="px-2.5 py-0.5 rounded-full bg-daoDark-900 border border-gray-700 text-gray-300 hover:border-daoGold-500 transition-colors">Nổ 3D/4D</button>
+          </div>
+          <span class="text-gray-500 text-[9px] hidden sm:inline whitespace-nowrap">Chuẩn 500k/ngày</span>
+        </div>
+
         <div class="overflow-x-auto scrollbar-none rounded-xl border border-gray-800 bg-daoDark-900/60">
-          <table class="w-full text-left text-[11px] border-collapse min-w-[920px]">
+          <table class="w-full text-left text-[11px] border-collapse min-w-[960px]">
             <thead>
               <tr class="bg-daoDark-900 border-b border-gray-800 text-[10px] text-gray-400 uppercase">
                 <th class="py-2 px-2 whitespace-nowrap">Ngày</th>
                 <th class="py-2 px-2 whitespace-nowrap">GĐB (Đề)</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">STL</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Tứ Thủ</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Xiên 2</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Giáp 65</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Kiềng 42</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">T.Công 27</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Gối 18</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Tứ Tượng 4</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">Bạch Thủ 1</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">3D (12s)</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">Tam Thủ (3s)</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">STL (2s)</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">Kiềng E42</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">Giáp E65</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">T.Công E27</th>
                 <th class="py-2 px-1.5 whitespace-nowrap text-center">3D (27s)</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">4D Tinh Chọn (16s)</th>
-                <th class="py-2 px-1.5 whitespace-nowrap text-center">4D Mở Rộng (81s)</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">4D (81s)</th>
+                <th class="py-2 px-1.5 whitespace-nowrap text-center">3D (12s)</th>
+                <th class="py-2 px-2 whitespace-nowrap text-right">Thu Về (VNĐ)</th>
+                <th class="py-2 px-2 whitespace-nowrap text-right">Lợi Nhuận (PnL)</th>
+                <th class="py-2 px-2 whitespace-nowrap text-center">Đánh Giá Danh Mục</th>
               </tr>
             </thead>
             <tbody id="historyTableBody" class="divide-y divide-gray-800/80 text-gray-300 font-mono">
               <tr>
-                <td colspan="15" class="py-4 text-center text-gray-500 font-sans">Đang tải lịch sử đối soát...</td>
+                <td colspan="13" class="py-4 text-center text-gray-500 font-sans">Đang tải lịch sử đối soát...</td>
               </tr>
             </tbody>
           </table>
@@ -1094,6 +1124,137 @@
       });
     }
 
+    let allHistoryRows = [];
+    let currentHistoryFilter = 'all';
+
+    function filterHistory(filterType) {
+      currentHistoryFilter = filterType;
+      const buttons = ['all', 'breakeven', 'lo', 'de', '3d4d'];
+      buttons.forEach(b => {
+        const btn = document.getElementById('flt-' + b);
+        if (btn) {
+          if (b === filterType) {
+            btn.className = 'px-2.5 py-0.5 rounded-full bg-daoGold-600 text-white font-bold transition-colors';
+          } else {
+            btn.className = 'px-2.5 py-0.5 rounded-full bg-daoDark-900 border border-gray-700 text-gray-300 hover:border-daoGold-500 transition-colors';
+          }
+        }
+      });
+      renderHistoryTable();
+    }
+
+    function renderHistoryTable() {
+      const tbody = document.getElementById('historyTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      let filtered = allHistoryRows;
+      if (currentHistoryFilter === 'breakeven') {
+        filtered = allHistoryRows.filter(r => r.isBreakEven || r.isWin || r.revenue >= 240000);
+      } else if (currentHistoryFilter === 'lo') {
+        filtered = allHistoryRows.filter(r => r.hitTamThu || r.hitStl || (r.tamThuHits && r.tamThuHits > 0));
+      } else if (currentHistoryFilter === 'de') {
+        filtered = allHistoryRows.filter(r => r.hitE65 || r.hitE42);
+      } else if (currentHistoryFilter === '3d4d') {
+        filtered = allHistoryRows.filter(r => r.hit3D_27 || r.hit4D_81 || r.hit3D || r.hit4D_16);
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="13" class="py-4 text-center text-gray-500 font-sans">Không có bản ghi nào phù hợp bộ lọc.</td></tr>';
+        return;
+      }
+
+      filtered.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-daoDark-850/60 transition-colors';
+
+        // Tam Thủ Lô (3s)
+        const tHits = row.tamThuHits !== undefined ? row.tamThuHits : (row.stlHits + (row.lotHits || 0));
+        const tamThuBadge = (tHits > 0 || row.hitTamThu)
+          ? `<span class="text-emerald-400 font-bold">✔ ${tHits}n</span>`
+          : `<span class="text-gray-500">-</span>`;
+
+        // STL (2s)
+        const stlBadge = row.hitStl 
+          ? `<span class="text-emerald-400 font-bold">✔ ${row.stlHits}n</span>` 
+          : `<span class="text-gray-500">-</span>`;
+
+        // Đề E42, E65, E27
+        const hit42 = row.hitE42 !== undefined ? row.hitE42 : row.hitE50;
+        const hit27 = row.hitE27 !== undefined ? row.hitE27 : row.hitE25;
+        const e42Badge = hit42 ? `<span class="text-amber-400 font-bold">✔ Lõi</span>` : `<span class="text-gray-500">-</span>`;
+        const e65Badge = row.hitE65 ? `<span class="text-cyan-400 font-bold">✔ Giáp</span>` : `<span class="text-gray-500">-</span>`;
+        const e27Badge = hit27 ? `<span class="text-daoGold-400 font-bold">✔ T.Công</span>` : `<span class="text-gray-500">-</span>`;
+
+        // 3D 27s & 4D 81s
+        const d3_27Badge = row.hit3D_27 
+          ? `<span class="text-purple-300 font-black px-1.5 py-0.5 rounded bg-purple-950/90 border border-purple-500/60 animate-pulse">💎 3D (960k)</span>` 
+          : `<span class="text-gray-500">-</span>`;
+
+        const d4_81Badge = row.hit4D_81 
+          ? `<span class="text-fuchsia-300 font-black px-1.5 py-0.5 rounded bg-fuchsia-950/90 border border-fuchsia-500/60 animate-pulse">👑 4D (8.88Tr)</span>` 
+          : `<span class="text-gray-500">-</span>`;
+
+        const d3Badge = row.hit3D 
+          ? `<span class="text-purple-400 font-bold">✔ 12s</span>` 
+          : `<span class="text-gray-500">-</span>`;
+
+        // GĐB format: D4 (hồng), D3 (tím), 2D đuôi (vàng)
+        let gdbHtml = '--';
+        if (row.gdb) {
+          const s = row.gdb;
+          const prefix = s.length > 4 ? s.substring(0, s.length - 4) : '';
+          const d4Digit = s.length >= 4 ? s.charAt(s.length - 4) : '';
+          const d3Digit = s.length >= 3 ? s.charAt(s.length - 3) : '';
+          const d2 = pad2(row.de);
+          gdbHtml = `<span class="text-gray-500">${prefix}</span>` +
+                    `<span class="text-fuchsia-400 font-bold">${d4Digit}</span>` +
+                    `<span class="text-purple-400 font-bold">${d3Digit}</span>` +
+                    `<span class="text-daoGold-400 font-black text-xs ml-0.5">${d2}</span>`;
+        }
+
+        // Tài chính danh mục chuẩn 500k
+        const rev = row.revenue || 0;
+        const pnl = row.pnl !== undefined ? row.pnl : (rev - 500000);
+        const pnlClass = pnl > 0 ? 'text-emerald-400 font-black' : (pnl >= -260000 ? 'text-daoGold-400 font-bold' : 'text-gray-400');
+        const pnlText = (pnl >= 0 ? '+' : '') + pnl.toLocaleString('vi-VN') + ' đ';
+        const revText = rev.toLocaleString('vi-VN') + ' đ';
+
+        // Đánh giá danh mục
+        let evalBadge = '';
+        if (row.hit4D_81 || row.hit4D_16) {
+          evalBadge = `<span class="text-fuchsia-300 font-black px-1.5 py-0.5 rounded bg-fuchsia-950/90 border border-fuchsia-500/60 animate-pulse">👑 ĐẠI THẮNG 4D</span>`;
+        } else if (row.hit3D_27 || row.hit3D) {
+          evalBadge = `<span class="text-purple-300 font-black px-1.5 py-0.5 rounded bg-purple-950/90 border border-purple-500/60">💎 ĐỘT BIẾN 3D</span>`;
+        } else if (pnl > 0) {
+          evalBadge = `<span class="text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-600/40">🟢 LÃI LÔ/ĐỀ</span>`;
+        } else if (row.isBreakEven || rev >= 240000) {
+          evalBadge = `<span class="text-daoGold-300 font-semibold px-1.5 py-0.5 rounded bg-amber-950/60 border border-amber-600/40">🟡 BẢO TOÀN VỐN</span>`;
+        } else if (row.hitE65) {
+          evalBadge = `<span class="text-cyan-400 text-[10px] px-1 py-0.5 rounded bg-cyan-950/40 border border-cyan-700/30">🛡️ VỎ BẢO VỆ</span>`;
+        } else {
+          evalBadge = `<span class="text-gray-500 text-[10px]">⚪ RỦI RO THẤP</span>`;
+        }
+
+        tr.innerHTML = `
+          <td class="py-2 px-2 text-gray-300 font-sans whitespace-nowrap">${row.date.substring(5)} <span class="text-gray-500 text-[10px]">(${row.dayOfWeek || ''})</span></td>
+          <td class="py-2 px-2 whitespace-nowrap">${gdbHtml}</td>
+          <td class="py-2 px-1.5 text-center">${tamThuBadge}</td>
+          <td class="py-2 px-1.5 text-center">${stlBadge}</td>
+          <td class="py-2 px-1.5 text-center">${e42Badge}</td>
+          <td class="py-2 px-1.5 text-center">${e65Badge}</td>
+          <td class="py-2 px-1.5 text-center">${e27Badge}</td>
+          <td class="py-2 px-1.5 text-center">${d3_27Badge}</td>
+          <td class="py-2 px-1.5 text-center">${d4_81Badge}</td>
+          <td class="py-2 px-1.5 text-center">${d3Badge}</td>
+          <td class="py-2 px-2 text-right font-mono ${rev > 0 ? 'text-gray-200' : 'text-gray-500'}">${revText}</td>
+          <td class="py-2 px-2 text-right font-mono ${pnlClass}">${pnlText}</td>
+          <td class="py-2 px-2 text-center whitespace-nowrap">${evalBadge}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
     async function fetchHistory(days) {
       try {
         const rangeText = document.getElementById('historyRangeText');
@@ -1101,123 +1262,63 @@
 
         const res = await fetch('/api/history?days=' + days + '&_t=' + Date.now(), { cache: 'no-store' });
         const data = await res.json();
-        const tbody = document.getElementById('historyTableBody');
-        tbody.innerHTML = '';
 
         const recCount = document.getElementById('historyRecordCount');
         if (recCount) recCount.innerText = `${data.length} kỳ OOS`;
 
-        // Tính toán thống kê tỷ lệ trúng thực chiến cho X ngày
+        // Thống kê chuẩn 3 Trục và Tỷ lệ Bảo Toàn Vốn
+        let hitTamThuCount = 0;
         let hitStlCount = 0;
-        let hitTuThuCount = 0;
         let hitE65Count = 0;
         let hitE42Count = 0;
+        let hit3D_27Count = 0;
+        let hit4D_81Count = 0;
+        let breakEvenCount = 0;
+        let totalPnl = 0;
 
         data.forEach(row => {
+          if (row.hitTamThu || (row.tamThuHits && row.tamThuHits > 0)) hitTamThuCount++;
           if (row.hitStl) hitStlCount++;
-          if (row.hitTuThu) hitTuThuCount++;
           if (row.hitE65) hitE65Count++;
           if (row.hitE42 !== undefined ? row.hitE42 : row.hitE50) hitE42Count++;
+          if (row.hit3D_27) hit3D_27Count++;
+          if (row.hit4D_81) hit4D_81Count++;
+          if (row.isBreakEven || row.revenue >= 240000 || row.isWin) breakEvenCount++;
+          if (row.pnl !== undefined) totalPnl += row.pnl;
         });
 
         const n = data.length;
         if (n > 0) {
+          const elBreakEven = document.getElementById('statBreakEven');
+          if (elBreakEven) elBreakEven.innerText = `${((breakEvenCount/n)*100).toFixed(1)}% (${breakEvenCount}/${n})`;
+
+          const elTamThu = document.getElementById('statTamThu');
+          if (elTamThu) elTamThu.innerText = `${((hitTamThuCount/n)*100).toFixed(1)}% (${hitTamThuCount}/${n})`;
+
           const elStl = document.getElementById('statStl');
-          const elTuThu = document.getElementById('statTuThu');
-          const elE65 = document.getElementById('statE65');
-          const elE50 = document.getElementById('statE50');
           if (elStl) elStl.innerText = `${((hitStlCount/n)*100).toFixed(1)}% (${hitStlCount}/${n})`;
-          if (elTuThu) elTuThu.innerText = `${((hitTuThuCount/n)*100).toFixed(1)}% (${hitTuThuCount}/${n})`;
+
+          const elE65 = document.getElementById('statE65');
           if (elE65) elE65.innerText = `${((hitE65Count/n)*100).toFixed(1)}% (${hitE65Count}/${n})`;
+
+          const elE50 = document.getElementById('statE50');
           if (elE50) elE50.innerText = `${((hitE42Count/n)*100).toFixed(1)}% (${hitE42Count}/${n})`;
+
+          const elDonBay = document.getElementById('statDonBay');
+          if (elDonBay) elDonBay.innerText = `3D: ${hit3D_27Count}k | 4D: ${hit4D_81Count}k`;
+
+          const elWinDays = document.getElementById('historyWinDaysText');
+          if (elWinDays) elWinDays.innerText = `${breakEvenCount}/${n} kỳ bảo toàn vốn (${((breakEvenCount/n)*100).toFixed(0)}%)`;
+
+          const elTotalPnl = document.getElementById('historyTotalPnl');
+          if (elTotalPnl) {
+            elTotalPnl.innerText = (totalPnl >= 0 ? '+' : '') + totalPnl.toLocaleString('vi-VN') + ' đ';
+            elTotalPnl.className = totalPnl >= 0 ? 'font-black text-emerald-400' : 'font-black text-rose-400';
+          }
         }
 
-        data.reverse().forEach(row => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-daoDark-850/60 transition-colors';
-
-          const stlBadge = row.hitStl 
-            ? `<span class="text-emerald-400 font-bold">✔ ${row.stlHits}n</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const tuThuBadge = row.hitTuThu 
-            ? `<span class="text-emerald-400 font-bold">✔ ${row.tuThuHits}n</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const xien2Badge = row.hitXien2 
-            ? `<span class="text-daoGold-400 font-black px-1 rounded bg-amber-950/80 border border-amber-600/50">✔ NỔ X2</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const e65Badge = row.hitE65 
-            ? `<span class="text-cyan-400 font-bold">✔</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const hit42 = row.hitE42 !== undefined ? row.hitE42 : row.hitE50;
-          const hit27 = row.hitE27 !== undefined ? row.hitE27 : row.hitE25;
-          const hit18 = row.hitE18 !== undefined ? row.hitE18 : row.hitE9;
-
-          const e42Badge = hit42 
-            ? `<span class="text-emerald-400 font-bold">✔</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const e27Badge = hit27 
-            ? `<span class="text-daoGold-400 font-bold">✔</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const e18Badge = hit18 
-            ? `<span class="text-amber-400 font-bold">✔</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const e4Badge = row.hitE4 
-            ? `<span class="text-rose-400 font-bold">✔</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const e1Badge = row.hitE1 
-            ? `<span class="text-yellow-300 font-black px-1 rounded bg-yellow-950/90 border border-yellow-500/60 animate-pulse">💥 ĂN BT</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const d3Badge = row.hit3D 
-            ? `<span class="text-purple-300 font-black px-1 rounded bg-purple-950/90 border border-purple-500/60">💎 ĂN 3D</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const d3_27Badge = row.hit3D_27 
-            ? `<span class="text-purple-400 font-bold">✔ 27s</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const d4_16Badge = row.hit4D_16 
-            ? `<span class="text-fuchsia-300 font-black px-1 rounded bg-fuchsia-950/90 border border-fuchsia-500/60 animate-pulse">👑 ĂN 4D</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          const d4_81Badge = row.hit4D_81 
-            ? `<span class="text-fuchsia-400 font-bold">✔ 81s</span>` 
-            : `<span class="text-gray-500">-</span>`;
-
-          let gdbHtml = '--';
-          if (row.gdb) {
-            const prefix = row.gdb.length > 2 ? row.gdb.substring(0, row.gdb.length - 2) : '';
-            const deTail = pad2(row.de);
-            gdbHtml = `<span class="text-gray-400">${prefix}</span><span class="text-daoGold-400 font-black text-xs ml-0.5">${deTail}</span>`;
-          }
-
-          tr.innerHTML = `
-            <td class="py-2 px-2 text-gray-300 font-sans whitespace-nowrap">${row.date.substring(5)}</td>
-            <td class="py-2 px-2 whitespace-nowrap">${gdbHtml}</td>
-            <td class="py-2 px-1.5 text-center">${stlBadge}</td>
-            <td class="py-2 px-1.5 text-center">${tuThuBadge}</td>
-            <td class="py-2 px-1.5 text-center">${xien2Badge}</td>
-            <td class="py-2 px-1.5 text-center">${e65Badge}</td>
-            <td class="py-2 px-1.5 text-center">${e42Badge}</td>
-            <td class="py-2 px-1.5 text-center">${e27Badge}</td>
-            <td class="py-2 px-1.5 text-center">${e18Badge}</td>
-            <td class="py-2 px-1.5 text-center">${e4Badge}</td>
-            <td class="py-2 px-1.5 text-center">${e1Badge}</td>
-            <td class="py-2 px-1.5 text-center">${d3Badge}</td>
-            <td class="py-2 px-1.5 text-center">${d3_27Badge}</td>
-            <td class="py-2 px-1.5 text-center">${d4_16Badge}</td>
-            <td class="py-2 px-1.5 text-center">${d4_81Badge}</td>
-          `;
-          tbody.appendChild(tr);
-        });
+        allHistoryRows = data.slice().reverse();
+        renderHistoryTable();
       } catch (e) {
         console.error(e);
       }
