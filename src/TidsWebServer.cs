@@ -54,14 +54,36 @@ namespace TidsTheory
                 if (int.TryParse(args[1], out p)) serverPort = p;
             }
 
-            try
+            // Thử danh sách các tiền tố mạng (Linux/Docker/Render/Windows)
+            string[] candidatePrefixes = new string[]
             {
-                listener = new HttpListener();
-                // Trên Linux / Docker / Cloud: lắng nghe trên tất cả interface
-                listener.Prefixes.Add("http://*:" + serverPort + "/");
-                listener.Start();
+                "http://+:" + serverPort + "/",
+                "http://*:" + serverPort + "/",
+                "http://0.0.0.0:" + serverPort + "/",
+                "http://localhost:" + serverPort + "/",
+                "http://127.0.0.1:" + serverPort + "/"
+            };
+
+            bool started = false;
+            foreach (var pfx in candidatePrefixes)
+            {
+                try
+                {
+                    var testListener = new HttpListener();
+                    testListener.Prefixes.Add(pfx);
+                    testListener.Start();
+                    listener = testListener;
+                    started = true;
+                    Console.WriteLine(">> [HTTP SERVER] Lắng nghe thành công với tiền tố: " + pfx);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(string.Format(">> [HTTP SERVER] Tiền tố {0} không khả dụng ({1}), thử tiếp...", pfx, ex.Message));
+                }
             }
-            catch
+
+            if (!started)
             {
                 try
                 {
@@ -69,15 +91,13 @@ namespace TidsTheory
                     listener.Prefixes.Add("http://localhost:" + serverPort + "/");
                     listener.Prefixes.Add("http://127.0.0.1:" + serverPort + "/");
                     listener.Start();
+                    started = true;
+                    Console.WriteLine(">> [HTTP SERVER] Lắng nghe thành công trên localhost:" + serverPort);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("[CẢNH BÁO] Không thể mở cổng " + serverPort + ": " + ex.Message);
-                    serverPort = 5055;
-                    listener = new HttpListener();
-                    listener.Prefixes.Add("http://localhost:" + serverPort + "/");
-                    listener.Prefixes.Add("http://127.0.0.1:" + serverPort + "/");
-                    listener.Start();
+                    Console.WriteLine("[LỖI] Không thể mở bất kỳ cổng/tiền tố nào cho cổng " + serverPort + ": " + ex.Message);
+                    return;
                 }
             }
 
@@ -142,6 +162,14 @@ namespace TidsTheory
                 if (path == "/" || path == "/index.html")
                 {
                     ServeStaticFile(res, "web/index.html", "text/html; charset=utf-8");
+                }
+                else if (path == "/healthz" || path == "/health" || path == "/ping")
+                {
+                    res.StatusCode = 200;
+                    byte[] buf = Encoding.UTF8.GetBytes("OK");
+                    res.ContentType = "text/plain";
+                    res.OutputStream.Write(buf, 0, buf.Length);
+                    res.Close();
                 }
                 else if (path == "/manifest.json")
                 {
